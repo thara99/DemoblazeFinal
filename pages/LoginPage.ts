@@ -22,11 +22,21 @@ export class LoginPage {
     await this.btnLogin.click();
     await expect(this.modalLogin).toBeVisible();
   }
-
   async login(username: string, password: string) {
+    // Ensure fields are filled properly
     await this.txtUsername.fill(username);
     await this.txtPassword.fill(password);
-    await this.btnSignIn.click();
-    await expect(this.btnLogin).toBeVisible();
+
+    // Click login button and wait for modal to close
+    await Promise.all([
+      this.page.waitForResponse(
+        (response) =>
+          response.url().includes("login") && response.status() === 200
+      ),
+      this.btnSignIn.click(),
+    ]);
+
+    // Verify user is logged in by checking for logout button
+    await expect(this.btnLogout).toBeVisible({ timeout: 5000 });
   }
 }

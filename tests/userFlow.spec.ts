@@ -16,12 +16,11 @@ test("Complete E2E flow for Demoblaze", async ({ page }) => {
 
   // Generate test user
   const { username, password } = generateRandomUser();
-
   await test.step("Sign up new user", async () => {
     await signupPage.goto();
     await signupPage.signup(username, password);
     // Wait for signup alert to be handled
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(2000);
   });
 
   await test.step("Login with new user", async () => {
@@ -29,12 +28,9 @@ test("Complete E2E flow for Demoblaze", async ({ page }) => {
     await loginPage.login(username, password);
     await expect(page.locator("#logout2")).toBeVisible();
   });
+
   await test.step("Search for Sony Laptops", async () => {
     const products = await getSonyVaioProducts(page);
-    console.log(`Found ${products.length} Sony Vaio product(s).`);
-    for (const product of products) {
-      console.log(product.title); // Use the stored title directly
-    }
 
     expect(products.length).toBeGreaterThan(0);
     // Verify the correct products were found

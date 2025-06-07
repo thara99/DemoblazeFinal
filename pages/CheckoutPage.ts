@@ -11,8 +11,7 @@ export class CheckoutPage {
   readonly txtYear: Locator;
   readonly btnPurchase: Locator;
   readonly btnOk: Locator;
-
-  // Declare testData as a class property
+  // Test data for form filling
   private testData: ReturnType<typeof generateTestData>;
 
   constructor(private page: Page) {
@@ -32,11 +31,12 @@ export class CheckoutPage {
       hasText: "Place Order",
     });
 
-    // Initialize testData in the constructor
+    // Initialize test data with fresh values
     this.testData = generateTestData();
   }
 
   async navigateToCheckoutForm() {
+    await expect(this.btnPlaceOrder).toBeVisible();
     await this.btnPlaceOrder.click();
     await expect(
       this.page.locator("h5.modal-title#orderModalLabel", {
@@ -44,9 +44,8 @@ export class CheckoutPage {
       })
     ).toBeVisible();
   }
-
   async fillCheckoutForm() {
-    // Use this.testData to access the class property
+    // Fill in all required checkout form fields
     await this.txtName.fill(this.testData.randomName);
     await this.txtCountry.fill(this.testData.randomCountry);
     await this.txtCity.fill(this.testData.randomCity);
