@@ -3,42 +3,36 @@ import { Page, Locator, expect } from "@playwright/test";
 export class CartPage {
   constructor(private page: Page) {}
   async goto() {
-    // Click on cart link
+    // Navigate to cart page
     await this.page.click("#cartur");
-
-    // Wait for the cart URL to be loaded
     await this.page.waitForURL("**/cart.html");
-
-    // Wait for the DOM to be ready
     await this.page.waitForLoadState("domcontentloaded");
 
-    // Now wait for critical UI elements to be present
+    // Wait for cart table to appear
     await this.page.waitForSelector("table.table", { state: "visible" });
 
-    // Check if there are items in cart or if the cart is empty
+    // Wait for either products to load or empty cart message
     await Promise.race([
       this.page.waitForSelector("table.table tbody tr", { state: "visible" }),
-      this.page.waitForSelector("h1.text-center:has-text('Products')"), // Empty cart indicator
+      this.page.waitForSelector("h1.text-center:has-text('Products')"),
     ]);
   }
   async removeProductByName(productName: string): Promise<void> {
-    // First wait for the cart table to be visible
+    // Wait for the cart contents to load
     await this.page.waitForSelector("table.table", { state: "visible" });
 
-    // Convert the product name to lowercase for case-insensitive comparison
+    // Convert to lowercase for better matching
     const productNameLower = productName.toLowerCase();
 
-    // First try with case-sensitive approach
+    // Try exact match first
     let row = this.page.locator("tr", { hasText: productName });
     let count = await row.count();
 
-    // If not found, try case-insensitive approach by checking each product title
+    // Fall back to partial matching if exact match fails
     if (count === 0) {
-      // Get all product rows
       const allRows = this.page.locator("table.table tbody tr");
       const rowCount = await allRows.count();
 
-      // Check each row for the product name
       for (let i = 0; i < rowCount; i++) {
         const titleElement = allRows.nth(i).locator("td:nth-child(2)");
         const title = await titleElement.innerText();
@@ -50,7 +44,6 @@ export class CartPage {
         }
       }
     }
-
     if (count > 0) {
       // Find and click the delete button for this product
       const deleteButton = row.locator("td a", { hasText: "Delete" });
