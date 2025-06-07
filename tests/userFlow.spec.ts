@@ -5,12 +5,14 @@ import { LoginPage } from "../pages/LoginPage";
 import { getSonyVaioProducts } from "../pages/HomePage";
 import { addToCartProductsOneByOne } from "../pages/AddToCart";
 import { CartPage } from "../pages/CartPage";
+import { CheckoutPage } from "../pages/CheckoutPage";
 
 test("Complete E2E flow for Demoblaze", async ({ page }) => {
   // Initialize page objects
   const signupPage = new SignupPage(page);
   const loginPage = new LoginPage(page);
   const cartPage = new CartPage(page);
+  const checkoutPage = new CheckoutPage(page);
 
   // Generate test user
   const { username, password } = generateRandomUser();
@@ -51,5 +53,8 @@ test("Complete E2E flow for Demoblaze", async ({ page }) => {
   await test.step("Remove an item from cart", async () => {
     await cartPage.goto();
     await cartPage.removeProductByName("Sony vaio i7");
+  });
+  await test.step("Checkout items", async () => {
+    await checkoutPage.completeCheckout();
   });
 });

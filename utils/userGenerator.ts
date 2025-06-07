@@ -1,7 +1,8 @@
+import { faker } from "@faker-js/faker";
+
 export function generateRandomUser() {
-  const timestamp = Date.now();
   return {
-    username: `user${timestamp}`,
-    password: "Test@123",
+    username: faker.internet.email(),
+    password: faker.internet.password(),
   };
 }
