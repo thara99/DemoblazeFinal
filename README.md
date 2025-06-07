@@ -2,8 +2,6 @@
 
 A robust end-to-end testing framework built with Playwright for the Demoblaze e-commerce website. This framework implements best practices for web testing including Page Object Model design, data-driven testing, and reliable test automation patterns.
 
-[![Playwright Tests](https://github.com/thara99/DemoblazeFinal/actions/workflows/playwright.yml/badge.svg)](https://github.com/thara99/DemoblazeFinal/actions/workflows/playwright.yml)
-
 # Project Overview
 
 This framework provides automated testing for critical user flows in the Demoblaze e-commerce platform, focusing on:
@@ -21,7 +19,6 @@ This framework provides automated testing for critical user flows in the Demobla
 - **Robust Selectors**: Implements reliable element targeting strategies
 - **Optimized Waiting Mechanisms**: Smart waiting strategies to reduce flakiness
 - **Cross-Browser Support**: Tests run on Chromium, Firefox, and WebKit
-- **CI/CD Integration**: Ready-made GitHub Actions workflows
 
 ## Getting Started
 
@@ -101,8 +98,7 @@ npx playwright show-report
 ├── utils/
 │   ├── testData.ts     # Test data generation with Faker
 │   └── userGenerator.ts # User credentials generation
-├── playwright.config.ts # Playwright configuration
-└── .github/workflows/   # CI/CD workflows
+└── playwright.config.ts # Playwright configuration
 ```
 
 ## Best Practices Implemented
@@ -112,39 +108,3 @@ npx playwright show-report
 - **Error Handling**: Robust error recovery and reporting
 - **Case-Insensitive Matching**: Flexible text matching for increased reliability
 - **Test Isolation**: Each test maintains its own state
-
-## CI/CD Integration (Setup Instructions)
-
-To enable CI/CD for this project:
-
-1. Push the local repository to GitHub:
-
-   ```
-   git init
-   git add .
-   git commit -m "Initial commit"
-   git branch -M main
-   git remote add origin https://github.com/yourusername/demoblaze-playwright.git
-   git push -u origin main
-   ```
-
-2. The GitHub Actions workflows in the `.github/workflows` directory will automatically be detected and enabled in your GitHub repository.
-
-3. You can manually trigger workflows from the "Actions" tab in your GitHub repository.
-
-Once set up, tests will automatically run on:
-
-- Every push to the main branch
-- Every pull request
-- Daily scheduled runs
-
-## Contributing
-
-1. Create a feature branch (`git checkout -b feature/amazing-feature`)
-2. Commit your changes (`git commit -m 'Add some amazing feature'`)
-3. Push to the branch (`git push origin feature/amazing-feature`)
-4. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
