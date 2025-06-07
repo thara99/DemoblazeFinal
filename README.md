@@ -2,6 +2,8 @@
 
 A robust end-to-end testing framework built with Playwright for the Demoblaze e-commerce website. This framework implements best practices for web testing including Page Object Model design, data-driven testing, and reliable test automation patterns.
 
+[![Playwright Tests](https://github.com/thara99/DemoblazeFinal/actions/workflows/playwright.yml/badge.svg)](https://github.com/thara99/DemoblazeFinal/actions/workflows/playwright.yml)
+
 # Project Overview
 
 This framework provides automated testing for critical user flows in the Demoblaze e-commerce platform, focusing on:
